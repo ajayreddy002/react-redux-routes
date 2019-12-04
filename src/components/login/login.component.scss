@@ -1,0 +1,54 @@
+.main_bg {
+    background-color: #e2e8f4;
+    height: 100vh;
+    padding-top: 40px;
+
+    .container {
+        background-color: #ffffff;
+        border-radius: 15px;
+
+        .header {
+            padding: 25px 0 15px 0;
+
+            h2 {
+                color: #666666;
+                font-size: 18px;
+                line-height: 18px;
+                text-align: center;
+            }
+        }
+
+        .form_block {
+            padding-top: 25px;
+
+            .form_title {
+                h1 {
+                    font-size: 17px;
+                    font-weight: 700;
+                    line-height: 18px;
+                }
+
+                p {
+                    font-size: 14px;
+                    font-weight: normal;
+                    line-height: 16px;
+                    color: #717171;
+                }
+            }
+            label {
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 18px;
+            }
+            .form-control {
+                border-color:#e7e7e7;
+                border-radius: 0;
+                outline: none;
+                width: 75%;
+                &:focus{
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
