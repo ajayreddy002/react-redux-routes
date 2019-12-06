@@ -1,6 +1,8 @@
+@import 'src/variables/fonts.scss';
+
 .main_bg {
     background-color: #e2e8f4;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 40px;
 
     .container {
@@ -35,18 +37,64 @@
                     color: #717171;
                 }
             }
-            label {
-                font-size: 14px;
-                font-weight: normal;
-                line-height: 18px;
+
+            .form-group {
+                padding-bottom: 8px;
             }
+
             .form-control {
-                border-color:#e7e7e7;
+                border-color: #e7e7e7;
                 border-radius: 0;
                 outline: none;
-                width: 75%;
-                &:focus{
+                font-size: 14px;
+                &.sign_in{
+                    width: 75%;
+                }
+                &:focus {
                     box-shadow: none;
+                }
+            }
+        }
+
+        .btn_block {
+            padding: 10px 0 40px 0;
+            margin-left: 50px;
+
+            button {
+                width: 150px;
+                padding: 10px 15px 10px 15px;
+                border-radius: 30px;
+                outline: none;
+                border: none;
+                background-color: #1f969e;
+                color: #ffffff;
+            }
+        }
+
+        .sign_up_switch {
+            text-align: center;
+            padding: 15px 0 25px 0;
+
+            .login__account-msg {
+                font-size: 16px;
+                font-weight: 500;
+                color: #c3cffd;
+                font-family: $para_font;
+                display: flex;
+                -webkit-transition: all 2s; /* Safari 3.1 to 6.0 */
+                transition: all 2s;
+                p {
+                    color: #4054eb;
+                    font-family: $para_font;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    margin: 0;
+                    padding-left: 5px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
