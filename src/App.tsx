@@ -13,33 +13,50 @@ export class App extends React.Component<{}>{
       currentUser: {},
       isSignedIn: false
     }
-    this.getLoginStatus = this.getLoginStatus.bind(this)
+    // this.getLoginStatus = this.getLoginStatus.bind(this)
   }
-  componentDidMount() {
-    const loginStatus = this.getLoginStatus();
-    if (loginStatus !== undefined) {
-      this.setState({
-        currentUser: loginStatus,
-        isSignedIn: true
-      })
-    } else {
-      this.setState({
-        currentUser: {},
-        isSignedIn: false
-      })
-    }
-  }
-  getLoginStatus() {
+  async componentDidMount() {
+    // const loginStatus = await this.getLoginStatus();
     AuthService.currentUser.subscribe(
       data => {
         if (data) {
-          return data;
+          if (this.state.currentUser === null || undefined || {}) {
+            this.setState({
+              currentUser: data,
+              isSignedIn: true
+            })
+          }
         } else {
-          return {}
+          this.setState({
+            currentUser: {},
+            isSignedIn: false
+          })
         }
       }
     )
+    // if (loginStatus !== undefined) {
+    //   this.setState({
+    //     currentUser: loginStatus,
+    //     isSignedIn: true
+    //   })
+    // } else {
+    //   this.setState({
+    //     currentUser: {},
+    //     isSignedIn: false
+    //   })
+    // }
   }
+  // getLoginStatus() {
+  //   AuthService.currentUser.subscribe(
+  //     data => {
+  //       if (data) {
+  //         return data;
+  //       } else {
+  //         return {}
+  //       }
+  //     }
+  //   )
+  // }
   render() {
     if (this.state.isSignedIn) {
       return (
