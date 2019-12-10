@@ -2,7 +2,7 @@
 import {BehaviorSubject} from 'rxjs';
 import { Redirect } from 'react-router-dom';
 import React from 'react';
-const userSignedIn = new BehaviorSubject(localStorage.getItem('user'))
+const userSignedIn = new BehaviorSubject(localStorage.getItem('user'));
 export const  AuthService = {
     isUserLoggedIn,
     logout,
