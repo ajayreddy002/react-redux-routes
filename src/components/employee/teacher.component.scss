@@ -102,6 +102,7 @@
             border-color: #5867dd;
             color: #fff;
             font-family: $para_font;
+
             &.cancel {
                 background-color: #fd397a;
                 border-color: #fd397a;
@@ -109,4 +110,157 @@
             }
         }
     }
+}
+
+
+/** Teacher Scss*/
+.grid_block {
+    background-color: #ffffff;
+    box-shadow: 0 0 13px 0 rgba(82, 63, 105, .1);
+    min-height: 450px;
+    padding: 20px 25px;
+
+    .title_block {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            font-size: 14px;
+        }
+
+        h2 {
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #48465b;
+            font-family: $para_font;
+        }
+    }
+
+    .search_block {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+        position: relative;
+        padding: 0;
+        width: 100%;
+
+        .search_input {
+            width: 33%;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            font-family: $para_font;
+            padding-left: 35px;
+
+            &:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #9aabff;
+                outline: none;
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(88, 103, 221, .25);
+                box-shadow: none !important;
+            }
+        }
+
+        span {
+            position: absolute;
+            height: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            top: 0;
+            width: 35px;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            transform: rotateY(150deg);
+
+            i {
+                display: flex;
+                justify-content: center;
+                line-height: 0;
+                color: #74788d;
+                font-size: 15px;
+            }
+        }
+    }
+
+    .emp_list {
+        padding-top: 30px;
+        .table {
+            color: #7286a2;
+            border-spacing: 0px;
+            width: 100%;
+            // border: 1px solid #eaf0f7;
+
+            .thead-light {
+                th {
+                    background-color: transparent !important;
+                    font-weight: 500;
+                    color: #50649c;
+                    font-size: 14px;
+                    border-bottom: 1px solid #eaf0f7;
+                    font-family: $header_font;
+                    border-top: none;
+                }
+            }
+
+            td {
+                border-bottom: 1px solid #eaf0f7;
+                line-height: 1.6;
+                font-family: Roboto, sans-serif;
+                font-size: 13px;
+                vertical-align: middle;
+            }
+
+            .icon_block {
+                display: flex;
+
+                .icon {
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 0 auto 5px;
+                    color: #a4abc5 !important;
+                    opacity: 1;
+                    cursor: pointer;
+
+                    &.red_col {
+                        &:hover {
+                            color: red !important;
+                        }
+                    }
+
+                    &:hover {
+                        color: #053fe4 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+button {
+    padding: .45rem 1.25rem;
+    border-radius: .25rem;
+    border: none;
+    outline: none;
+    margin-left: 35px;
+    background-color: #5867dd;
+    border-color: #5867dd;
+    color: #fff;
+    font-family: $para_font;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { AuthService } from './_services/auth.service';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { Route, Switch } from 'react-router';

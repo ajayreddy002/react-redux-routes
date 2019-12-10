@@ -1,11 +1,10 @@
 export interface ITeacherModel {
-    school_id: string;
+    school_id: any;
     email: string;
     password: string;
-    teacher_name: string;
-    branch_name: string;
-    roll: number;
-    branch_id: any;
+    employee_name: string;
+    subject: string;
+    phone_number: string;
 }
 export interface ITeacherDetails {
     branch_address: string;

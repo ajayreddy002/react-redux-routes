@@ -1,0 +1,75 @@
+@import 'src/variables/fonts.scss';
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+/** @@@@@@@@@@@ Table Scss @@@@@@@@@@@@@@@@@@@@@@ */
+.table {
+  color: #7286a2;
+  border-spacing: 0px;
+  width: 100%;
+  // border: 1px solid #eaf0f7;
+
+  .thead-light {
+    th {
+      background-color: transparent !important;
+      font-weight: 500;
+      color: #50649c;
+      font-size: 14px;
+      border-bottom: 1px solid #eaf0f7;
+      font-family: $header_font;
+      border-top: none;
+    }
+  }
+
+  td {
+    border-bottom: 1px solid #eaf0f7;
+    line-height: 1.6;
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+
+  .icon_block {
+    display: flex;
+
+    .icon {
+      display: inline-block;
+      font-size: 16px;
+      margin: 0 auto 5px;
+      color: #a4abc5 !important;
+      opacity: 1;
+      cursor: pointer;
+
+      &.red_col {
+        &:hover {
+          color: red !important;
+        }
+      }
+
+      &:hover {
+        color: #053fe4 !important;
+      }
+    }
+  }
+}
