@@ -30,9 +30,7 @@ export default class AddTeacherComponent extends React.Component<any>{
         const { name, value } = e.target;
         let formErros = { ...this.state.formErros };
         formErros[name] = validateFields.fieldValidation(name, value);
-        console.log(formErros)
         this.setState({ formErros, [name]: value })
-        console.log(this.state)
     }
     handleSubmit(e: any) {
         e.preventDefault();

@@ -13,9 +13,8 @@ function fieldValidation(name: any, value: any) {
                 } else {
                     return 'Enter Valid Email'
                 }
-                
+
             }
-            break;
         case 'employee_name':
         case 'subject':
         case 'phone_number':
@@ -24,8 +23,6 @@ function fieldValidation(name: any, value: any) {
             } else {
                 return ''
             }
-            break;
-
         default:
             break;
     }
