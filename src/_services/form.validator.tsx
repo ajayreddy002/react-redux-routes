@@ -6,7 +6,7 @@ function fieldValidation(name: any, value: any) {
     switch (name) {
         case 'email':
             if (validator.isEmpty(value)) {
-                return `${name} is Required`
+                return `Field is Required`
             } else {
                 if (validator.isEmail(value)) {
                     return ''
@@ -19,7 +19,7 @@ function fieldValidation(name: any, value: any) {
         case 'subject':
         case 'phone_number':
             if (validator.isEmpty(value)) {
-                return `${name} is Required`
+                return `Field is Required`
             } else {
                 return ''
             }

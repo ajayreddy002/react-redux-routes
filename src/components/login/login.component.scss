@@ -3,8 +3,9 @@
 .main_bg {
     background-color: #e2e8f4;
     min-height: 100vh;
-    padding-top: 40px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .container {
         background-color: #ffffff;
         border-radius: 15px;

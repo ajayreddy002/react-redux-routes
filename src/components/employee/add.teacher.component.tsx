@@ -14,7 +14,7 @@ export default class AddTeacherComponent extends React.Component<any>{
                 subject: '',
                 phone_number: ''
             },
-            formErros: {
+            formErrors: {
                 email: '',
                 password: '',
                 employee_name: '',
@@ -28,18 +28,18 @@ export default class AddTeacherComponent extends React.Component<any>{
     handleInputChange(e: any) {
         e.preventDefault();
         const { name, value } = e.target;
-        let formErros = { ...this.state.formErros };
-        formErros[name] = validateFields.fieldValidation(name, value);
-        this.setState({ formErros, [name]: value })
+        let formErrors = { ...this.state.formErrors };
+        formErrors[name] = validateFields.fieldValidation(name, value);
+        this.setState({ formErrors, [name]: value })
     }
     handleSubmit(e: any) {
         e.preventDefault();
-        if (formValid.validateForm(this.state.formErros)) {
+        if (formValid.validateForm(this.state.formErrors)) {
             console.log('valid')
         }
     }
     render() {
-        const { formErros } = this.state;
+        const { formErrors } = this.state;
         return (
             <div>
                 <div className="add_form">
@@ -55,8 +55,8 @@ export default class AddTeacherComponent extends React.Component<any>{
                                         <input type="text" className="form-control" name="employee_name" placeholder="Enter Employee Name"
                                             onChange={this.handleInputChange}
                                         />
-                                        {formErros.employee_name.length > 0 &&
-                                            <span>{formErros.employee_name}</span>
+                                        {formErrors.employee_name.length > 0 &&
+                                            <span className="err_msg">{formErrors.employee_name}</span>
                                         }
                                     </div>
                                 </div>
@@ -66,8 +66,8 @@ export default class AddTeacherComponent extends React.Component<any>{
                                         <input type="text" className="form-control" name="email" placeholder="Enter Email"
                                             onChange={this.handleInputChange}
                                         />
-                                        {formErros.email.length > 0 &&
-                                            <span>{formErros.email}</span>
+                                        {formErrors.email.length > 0 &&
+                                            <span className="err_msg">{formErrors.email}</span>
                                         }
                                     </div>
                                 </div>
@@ -77,8 +77,8 @@ export default class AddTeacherComponent extends React.Component<any>{
                                         <input type="text" className="form-control" name="subject" placeholder="Enter Subject Name"
                                             onChange={this.handleInputChange}
                                         />
-                                        {formErros.subject.length > 0 &&
-                                            <span>{formErros.subject}</span>
+                                        {formErrors.subject.length > 0 &&
+                                            <span className="err_msg">{formErrors.subject}</span>
                                         }
                                     </div>
                                 </div>
@@ -88,8 +88,8 @@ export default class AddTeacherComponent extends React.Component<any>{
                                         <input type="text" className="form-control" name="phone_number" placeholder="Enter Phone Number"
                                             onChange={this.handleInputChange}
                                         />
-                                         {formErros.phone_number.length > 0 &&
-                                            <span>{formErros.phone_number}</span>
+                                         {formErrors.phone_number.length > 0 &&
+                                            <span className="err_msg">{formErrors.phone_number}</span>
                                         }
                                     </div>
                                 </div>

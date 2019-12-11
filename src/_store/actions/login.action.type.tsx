@@ -15,7 +15,7 @@ function login(url: string, payLoad: ILoginModel) {
     return (dispatch: any) => {
         dispatch(request({ payLoad }));
 
-        HttpService.login('login', payLoad)
+        HttpService.login(url, payLoad)
             .then(
                 user => {
                     dispatch(success(user));
@@ -35,7 +35,7 @@ function register(url: string, payLoad: any) {
     return (dispatch: any) => {
         dispatch(request(payLoad));
 
-        HttpService.register('register', payLoad)
+        HttpService.register(url, payLoad)
             .then(
                 user => {
                     dispatch(success(payLoad.school_name));
