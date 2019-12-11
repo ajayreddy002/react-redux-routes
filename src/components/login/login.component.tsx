@@ -1,19 +1,26 @@
 import * as React from 'react';
 import './login.component.scss';
 import signUpImg from '../../assets/signup.png';
-export class LoginComponent extends React.Component<{}>{
+import { LoginActions } from '../../_store/actions/login.action.type';
+import { connect } from 'react-redux';
+class LoginComponent extends React.Component<any>{
     public state: any;
     constructor(props: any) {
         super(props);
         this.state = {
             isSignIn: false
         }
-        this.showSignIn = this.showSignIn.bind(this)
+        this.showSignIn = this.showSignIn.bind(this);
+        this.login = this.login.bind(this);
     }
     showSignIn() {
         this.setState({
             isSignIn: !this.state.isSignIn
         });
+    }
+    login(payLoad: any){
+        this.props.login('login',payLoad)
+        
     }
     render() {
         return (
@@ -98,7 +105,7 @@ export class LoginComponent extends React.Component<{}>{
                                             </div>
                                         </form>
                                         <div className="btn_block">
-                                            <button type="button">Login</button>
+                                            <button type="button" onClick={this.login}>Login</button>
                                         </div>
                                         <div className="sign_up_switch">
                                             <div className="login__account-msg">
@@ -116,3 +123,13 @@ export class LoginComponent extends React.Component<{}>{
         )
     }
 }
+function mapState(state: any) {
+    const { loggingIn } = state.loginReducer;
+    return { loggingIn };
+}
+const actionCreators = {
+    login: LoginActions.login,
+    logout: LoginActions.logout
+};
+const connectedLoginPage = connect(mapState, actionCreators)(LoginComponent);
+export { connectedLoginPage as LoginComponent }

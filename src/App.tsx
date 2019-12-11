@@ -5,7 +5,10 @@ import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { Route, Switch } from 'react-router';
 import { LoginComponent } from './components/login/login.component';
 import { BrowserRouter } from 'react-router-dom';
-export class App extends React.Component<{}>{
+import { alertActions } from './_store/actionTypes/alertConstants';
+import { connect } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
+export class App extends React.Component<any>{
   public state: any;
   constructor(props: any) {
     super(props);
@@ -13,7 +16,6 @@ export class App extends React.Component<{}>{
       currentUser: {},
       isSignedIn: false
     }
-    // this.getLoginStatus = this.getLoginStatus.bind(this)
   }
   async componentDidMount() {
     // const loginStatus = await this.getLoginStatus();
@@ -34,30 +36,10 @@ export class App extends React.Component<{}>{
         }
       }
     )
-    // if (loginStatus !== undefined) {
-    //   this.setState({
-    //     currentUser: loginStatus,
-    //     isSignedIn: true
-    //   })
-    // } else {
-    //   this.setState({
-    //     currentUser: {},
-    //     isSignedIn: false
-    //   })
-    // }
   }
-  // getLoginStatus() {
-  //   AuthService.currentUser.subscribe(
-  //     data => {
-  //       if (data) {
-  //         return data;
-  //       } else {
-  //         return {}
-  //       }
-  //     }
-  //   )
-  // }
+
   render() {
+    const { alert } = this.props;
     if (this.state.isSignedIn) {
       return (
         <BrowserRouter>
@@ -68,6 +50,19 @@ export class App extends React.Component<{}>{
       return (
         <BrowserRouter>
           <div>
+            {alert.message &&
+              <div className="alert_message">
+                <div className={`${alert.type} alert_content`}>
+                  <div className="icon_close">
+                    <i className="fas fa-times"></i>
+                  </div>
+                  <p className="toast__type"> <span> <i className="fas fa-exclamation-triangle"></i> </span> Error</p>
+                  <p className="toast__message">{alert.message} !</p>
+                </div>
+              </div>
+              // <div className={`alert ${alert.type}`}>{alert.message}, {alert.type}
+              // </div>
+            }
             <Switch>
               <Route path="/login" component={LoginComponent} exact></Route>
               <Route path="*" component={LoginComponent}></Route>
@@ -78,4 +73,14 @@ export class App extends React.Component<{}>{
     }
   }
 }
-export default App;
+function mapState(state: any) {
+  const { alert } = state;
+  return { alert };
+}
+
+const actionCreators = {
+  clearAlerts: alertActions.clear
+};
+
+const connectedApp = connect(mapState, actionCreators)(App);
+export default connectedApp;

@@ -8,8 +8,8 @@ export default class AddTeacherComponent extends React.Component<any>{
         this.state = {
             addTeacherForm: {
                 email: '',
-                password: '',
-                school_id: '',
+                password: '1236545',
+                school_id: '1',
                 employee_name: '',
                 subject: '',
                 phone_number: ''
@@ -30,11 +30,12 @@ export default class AddTeacherComponent extends React.Component<any>{
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
         formErrors[name] = validateFields.fieldValidation(name, value);
-        this.setState({ formErrors, [name]: value })
+        this.setState({ formErrors, addTeacherForm:{ ...this.state.addTeacherForm,[name]: value} });
+        console.log(this.state)
     }
     handleSubmit(e: any) {
         e.preventDefault();
-        if (formValid.validateForm(this.state.formErrors)) {
+        if (formValid.validateForm(this.state.addTeacherForm)) {
             console.log('valid')
         }
     }
@@ -88,7 +89,7 @@ export default class AddTeacherComponent extends React.Component<any>{
                                         <input type="text" className="form-control" name="phone_number" placeholder="Enter Phone Number"
                                             onChange={this.handleInputChange}
                                         />
-                                         {formErrors.phone_number.length > 0 &&
+                                        {formErrors.phone_number.length > 0 &&
                                             <span className="err_msg">{formErrors.phone_number}</span>
                                         }
                                     </div>

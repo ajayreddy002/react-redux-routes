@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { ILoginModel } from '../../_models/login.mode';
 import { LoginActionTypes } from '../actionTypes/login.action.types';
 import { HttpService } from '../../_services/http.services';
@@ -17,9 +17,14 @@ function login(url: string, payLoad: ILoginModel) {
 
         HttpService.login(url, payLoad)
             .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
+                res => {
+                    if (res.response.status === 200) {
+                        dispatch(success(res));
+                        history.push('/');
+                    } else {
+                        dispatch(failure(res.response.statusText));
+                        dispatch(alertActions.error(res.response.statusText));
+                    }
                 },
                 error => {
                     dispatch(failure(error.toString()));
