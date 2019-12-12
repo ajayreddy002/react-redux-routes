@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { alertActions } from './_store/actionTypes/alertConstants';
 import { connect } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 export class App extends React.Component<any>{
   public state: any;
   constructor(props: any) {
@@ -16,6 +17,7 @@ export class App extends React.Component<any>{
       currentUser: {},
       isSignedIn: false
     }
+    this.clearAlerts = this.clearAlerts.bind(this)
   }
   async componentDidMount() {
     // const loginStatus = await this.getLoginStatus();
@@ -37,12 +39,18 @@ export class App extends React.Component<any>{
       }
     )
   }
-
+  clearAlerts() {
+    this.props.clearAlerts();
+  }
   render() {
+    // setTimeout(() => {
+    //   this.props.clearAlerts()
+    // }, 9000)
     const { alert } = this.props;
     if (this.state.isSignedIn) {
       return (
         <BrowserRouter>
+        <ToastContainer />
           <SideNavComponent></SideNavComponent>
         </BrowserRouter>
       )
@@ -50,15 +58,27 @@ export class App extends React.Component<any>{
       return (
         <BrowserRouter>
           <div>
+            <ToastContainer />
             {alert.message &&
               <div className="alert_message">
-                <div className={`${alert.type} alert_content`}>
-                  <div className="icon_close">
-                    <i className="fas fa-times"></i>
+                {alert.type === 'danger' &&
+                  <div className={`${alert.type} alert_content`}>
+                    <div className="icon_close">
+                      <i className="fas fa-times"></i>
+                    </div>
+                    <p className="toast__type" onClick={() => this.clearAlerts()}> <span onClick={() => this.clearAlerts()}> <i className="fas fa-exclamation-triangle"></i> </span> Error</p>
+                    <p className="toast__message">{alert.message} !</p>
                   </div>
-                  <p className="toast__type"> <span> <i className="fas fa-exclamation-triangle"></i> </span> Error</p>
-                  <p className="toast__message">{alert.message} !</p>
-                </div>
+                }
+                {alert.type === 'success' &&
+                  <div className={`${alert.type} alert_content`}>
+                    <div className="icon_close">
+                      <i className="fas fa-times"></i>
+                    </div>
+                    <p className="toast__type"> <span onClick={() => this.clearAlerts()}> <i className="fas fa-exclamation-triangle"></i> </span> Error</p>
+                    <p className="toast__message">{alert.message} !</p>
+                  </div>
+                }
               </div>
               // <div className={`alert ${alert.type}`}>{alert.message}, {alert.type}
               // </div>

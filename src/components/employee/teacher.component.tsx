@@ -1,19 +1,39 @@
 import React from 'react';
 import './teacher.component.scss';
 import AddTeacherComponent from './add.teacher.component';
+import { BaseCommonServices } from '../../_services/base.services';
+import { toast, Slide } from 'react-toastify';
 export default class TeachersComponent extends React.Component<{}>{
     public state: any;
     constructor(props: any) {
         super(props);
         this.state = {
-            isAddForm: false
+            isAddForm: false,
+            employeesList: []
         }
         this.showAddTeacherForm = this.showAddTeacherForm.bind(this)
+        this.getEmployees = this.getEmployees.bind(this)
     }
     showAddTeacherForm() {
         this.setState({
             isAddForm: !this.state.isAddForm
         })
+    }
+    componentDidMount() {
+        this.getEmployees()
+    }
+    getEmployees() {
+        BaseCommonServices.getData('school/emp-list/1')
+            .then((data: any) => {
+                this.setState({
+                    employeesList: data.data.staffList
+                })
+            }).catch(e => {
+                toast.info('Something went wrong', {
+                    position: 'bottom-center',
+                    transition: Slide
+                })
+            })
     }
     render() {
         return (
@@ -46,16 +66,18 @@ export default class TeachersComponent extends React.Component<{}>{
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>product_name</td>
-                                        <td>product_description</td>
-                                        <td>category_name</td>
-                                        <td>product_price</td>
-                                        <td>
-                                            <div className="icon_block">
-                                                <i className="far fa-edit icon"></i>
-                                                <i className="fas fa-trash-alt icon red_col"></i>
+                                        <React.Fragment>
+                                            <div>
+                                                {this.state.employeesList.map((item: any) =>
+                                                    <td>
+                                                        <div className="icon_block">
+                                                            <i className="far fa-edit icon"></i>
+                                                            <i className="fas fa-trash-alt icon red_col"></i>
+                                                        </div>
+                                                    </td>
+                                                )}
                                             </div>
-                                        </td>
+                                        </React.Fragment>
                                     </tr>
                                 </tbody>
                             </table>

@@ -19,7 +19,8 @@ function login(url: string, payLoad: ILoginModel) {
 }
 function register(url: string, payLoad: ILoginModel) {
     return axios.post(BASE_URL + url, payLoad)
-        .then(handleResponse);
+        .then(handleResponse)
+        .catch(e => {return e})
 }
 
 function logout() {

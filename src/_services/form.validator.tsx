@@ -15,9 +15,22 @@ function fieldValidation(name: any, value: any) {
                 }
 
             }
+        case 'phone_number':
+            if (validator.isEmpty(value)) {
+                return `Field is Required`
+            } else {
+                if (validator.isNumeric(value) && validator.isMobilePhone(value,'en-IN')) {
+                    return ''
+                } else {
+                    return 'Enter Valid Phone Number'
+                }
+            }
         case 'employee_name':
         case 'subject':
-        case 'phone_number':
+        case 'password':
+        case 'school_name':
+        case 'user_name':
+        case 'school_address':
             if (validator.isEmpty(value)) {
                 return `Field is Required`
             } else {

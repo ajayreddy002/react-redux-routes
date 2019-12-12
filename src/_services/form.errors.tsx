@@ -2,11 +2,11 @@
 export const formValid = {
     validateForm
 }
-function validateForm(params: any, ...rest: any) {
+function validateForm(formErrors: any, ...rest: any) {
     let valid = true;
     // validate form errors being empty
-    Object.values(params).forEach((val: any) => {
-        val.length < 0 && (valid = false);
+    Object.values(formErrors).forEach((val: any) => {
+        val.length > 0 && (valid = false);
     });
 
     // validate the form was filled out

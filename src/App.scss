@@ -74,6 +74,11 @@
   }
 }
 
+.err_msg {
+  color: red;
+  font-family: $para_font;
+  font-size: 14px;
+}
 
 /** @@@@@@@@@@@     Toaster Styles     @@@@@@@@@@@@@*/
 
@@ -86,7 +91,7 @@
 
   .alert_content {
     position: fixed;
-    bottom: 0px;
+    bottom: 10px;
     display: inline-block;
     background-color: #ffffff;
     box-shadow: 1px 7px 14px -5px rgba(0, 0, 0, 0.2);
@@ -94,18 +99,21 @@
     text-align: left;
     padding: 15px 0px 0px 25px;
     border-radius: 5px;
+
     .toast__type {
       color: #3e3e3e;
       font-weight: 700;
       margin-top: 0;
       margin-bottom: 8px;
+      cursor: pointer;
+
       i {
         color: #e79494;
       }
     }
 
     .toast__message {
-      font-size: 14px;
+      font-size: 15px;
       margin-top: 0;
       margin-bottom: 0;
       color: #878787;
@@ -125,8 +133,24 @@
     }
   }
 }
-.alert-danger {
+
+.danger {
   &.alert_content {
     background-color: #f8d7da !important;
   }
+}
+
+.success {
+  &.alert_content {
+    background-color: #09d3ac !important;
+  }
+  &.toast__message {
+    color: #ffffff;
+  }
+}
+
+.spinner-border {
+  color: #ffffff !important;
+  width: 20px;
+  height: 20px;
 }

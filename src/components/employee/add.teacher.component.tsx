@@ -1,6 +1,7 @@
 import React from 'react';
-import { formValid } from '../../_services/form.errors';
 import { validateFields } from '../../_services/form.validator';
+import { toast, ToastContainer, Slide } from 'react-toastify'
+import { BaseCommonServices } from '../../_services/base.services';
 export default class AddTeacherComponent extends React.Component<any>{
     state: any
     constructor(props: any) {
@@ -24,25 +25,47 @@ export default class AddTeacherComponent extends React.Component<any>{
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.show = this.show.bind(this)
     }
     handleInputChange(e: any) {
         e.preventDefault();
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
         formErrors[name] = validateFields.fieldValidation(name, value);
-        this.setState({ formErrors, addTeacherForm:{ ...this.state.addTeacherForm,[name]: value} });
-        console.log(this.state)
+        this.setState({ formErrors, addTeacherForm: { ...this.state.addTeacherForm, [name]: value } });
+    }
+    show(){
+        return this.props.showAddTeacherForm
     }
     handleSubmit(e: any) {
         e.preventDefault();
-        if (formValid.validateForm(this.state.addTeacherForm)) {
-            console.log('valid')
+        if (this.state.addTeacherForm.email !== '' && this.state.addTeacherForm.employee_name !== ''
+            && this.state.addTeacherForm.subject !== '' && this.state.addTeacherForm.phone_number !== '') {
+            BaseCommonServices.postData('employee/create', this.state.addTeacherForm)
+                .then((data: any) => {
+                    toast.success(`${data.data}`, {
+                        position: 'bottom-center',
+                        transition: Slide
+                    })
+                    this.show();
+                }).catch(e => {
+                    toast.error(`${e.data}`, {
+                        position: 'bottom-center',
+                        transition: Slide
+                    })
+                })
+        } else {
+            toast.info('Please enter required params', {
+                position: 'bottom-center',
+                transition: Slide
+            })
         }
     }
     render() {
         const { formErrors } = this.state;
         return (
             <div>
+                <ToastContainer />
                 <div className="add_form">
                     <div className="form_title">
                         <h1>Add Employee</h1>
@@ -98,7 +121,7 @@ export default class AddTeacherComponent extends React.Component<any>{
                         </div>
                     </form>
                     <div className="btn_block">
-                        <button type="button" onClick={this.handleSubmit}>Add</button>
+                        <button type="button" onClick={(e) => this.handleSubmit(e)}>Add</button>
                         <button type="button" className="cancel" onClick={this.props.showAddTeacherForm}>Cancel</button>
                     </div>
                 </div>
