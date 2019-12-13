@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './teacher.component.scss';
 import AddTeacherComponent from './add.teacher.component';
 import { BaseCommonServices } from '../../_services/base.services';
@@ -61,24 +61,30 @@ export default class TeachersComponent extends React.Component<{}>{
                                         <th scope="col">Employee Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Subject</th>
+                                        <th scope="col">Phone Number</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <React.Fragment>
-                                            <div>
-                                                {this.state.employeesList.map((item: any) =>
+                                    {
+                                        this.state.employeesList.map((item: any) =>
+                                            <Fragment key={item.id}>
+                                                <tr>
+                                                    <td>{item.id}</td>
+                                                    <td>{item.employee_name}</td>
+                                                    <td>{item.email}</td>
+                                                    <td>{item.subject}</td>
+                                                    <td>{item.phone_number}</td>
                                                     <td>
                                                         <div className="icon_block">
                                                             <i className="far fa-edit icon"></i>
                                                             <i className="fas fa-trash-alt icon red_col"></i>
                                                         </div>
                                                     </td>
-                                                )}
-                                            </div>
-                                        </React.Fragment>
-                                    </tr>
+                                                </tr>
+                                            </Fragment>
+                                        )
+                                    }
                                 </tbody>
                             </table>
                         </div>
