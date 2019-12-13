@@ -25,8 +25,9 @@ export default class AddTeacherComponent extends React.Component<any>{
         }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.show = this.show.bind(this)
     }
+
+    /** Field validation and field errors*/
     handleInputChange(e: any) {
         e.preventDefault();
         const { name, value } = e.target;
@@ -34,9 +35,8 @@ export default class AddTeacherComponent extends React.Component<any>{
         formErrors[name] = validateFields.fieldValidation(name, value);
         this.setState({ formErrors, addTeacherForm: { ...this.state.addTeacherForm, [name]: value } });
     }
-    show(){
-        return this.props.showAddTeacherForm
-    }
+
+    // Send the request to API
     handleSubmit(e: any) {
         e.preventDefault();
         if (this.state.addTeacherForm.email !== '' && this.state.addTeacherForm.employee_name !== ''
@@ -46,8 +46,11 @@ export default class AddTeacherComponent extends React.Component<any>{
                     toast.success(`${data.data}`, {
                         position: 'bottom-center',
                         transition: Slide
-                    })
-                    this.show();
+                    });
+                    setTimeout(() => {
+                        this.props.showAddTeacherForm()
+                    }, 3000)
+                    this.setState({ addTeacherForm: {}, isAddForm: false })
                 }).catch(e => {
                     toast.error(`${e.data}`, {
                         position: 'bottom-center',
@@ -62,6 +65,7 @@ export default class AddTeacherComponent extends React.Component<any>{
         }
     }
     render() {
+
         const { formErrors } = this.state;
         return (
             <div>

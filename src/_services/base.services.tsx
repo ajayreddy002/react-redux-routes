@@ -7,6 +7,7 @@ export const BaseCommonServices = {
     deleteData,
 }
 if (localStorage.getItem('token')) {
+//    let AUTH_TOKEN: any = localStorage.getItem('token')
    let AUTH_TOKEN: any = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = JSON.parse(AUTH_TOKEN);
 }

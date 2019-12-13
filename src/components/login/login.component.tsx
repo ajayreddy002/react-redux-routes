@@ -33,18 +33,22 @@ class LoginComponent extends React.Component<any>{
                 school_address: ''
             }
         }
+
         this.showSignIn = this.showSignIn.bind(this);
         this.loginMethod = this.loginMethod.bind(this);
         this.signupMethod = this.signupMethod.bind(this);
     }
+
+    // Hide and show of login and signup form
     showSignIn() {
         this.setState({
             isSignIn: !this.state.isSignIn
         });
     }
+
     loginMethod(e: any) {
         if (this.state.loginForm.email !== '' && this.state.loginForm.email !== '') {
-            console.log('valid')
+            console.log('valid');
             this.props.login('school/login', this.state.loginForm);
         } else {
             toast.error('Please enter valid details', {
@@ -54,6 +58,7 @@ class LoginComponent extends React.Component<any>{
             })
         }
     }
+
     signupMethod(e: any) {
         if (this.state.signUpForm.email !== '' && this.state.signUpForm.email !== ''
             && this.state.signUpForm.school_name !== '' && this.state.signUpForm.user_name !== '') {
@@ -68,6 +73,8 @@ class LoginComponent extends React.Component<any>{
             })
         }
     }
+
+    /** Field validation and field errors*/
     handleInputChange(event: any, formType: any) {
         event.preventDefault();
         const { name, value } = event.target;
@@ -80,6 +87,7 @@ class LoginComponent extends React.Component<any>{
             this.setState({ formErrors, signUpForm: { ...this.state.signUpForm, [name]: value } });
         }
     }
+
     render() {
         const { formErrors } = this.state;
         const { registering, loggingIn } = this.props;
@@ -221,15 +229,18 @@ class LoginComponent extends React.Component<any>{
         )
     }
 }
+
 function mapState(state: any) {
     const { loggingIn } = state.loginReducer;
     const { registering } = state.registration;
     return { loggingIn, registering };
 }
+
 const actionCreators = {
     login: LoginActions.login,
     logout: LoginActions.logout,
     register: LoginActions.register,
 };
+
 const connectedLoginPage = connect(mapState, actionCreators)(LoginComponent);
 export { connectedLoginPage as LoginComponent }

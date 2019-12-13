@@ -3,41 +3,91 @@ import './teacher.component.scss';
 import AddTeacherComponent from './add.teacher.component';
 import { BaseCommonServices } from '../../_services/base.services';
 import { toast, Slide } from 'react-toastify';
+import { AuthService } from '../../_services/auth.service';
+import  EditEmpDialo  from './edit.emp.dialo';
 export default class TeachersComponent extends React.Component<{}>{
     public state: any;
     constructor(props: any) {
         super(props);
         this.state = {
             isAddForm: false,
-            employeesList: []
+            employeesList: [],
+            filterValue: '',
+            filteredData: [],
+            open: false,
+            selected: ''
         }
-        this.showAddTeacherForm = this.showAddTeacherForm.bind(this)
-        this.getEmployees = this.getEmployees.bind(this)
+        this.showAddTeacherForm = this.showAddTeacherForm.bind(this);
+        this.getEmployees = this.getEmployees.bind(this);
+        this.filterList = this.filterList.bind(this);
+        this.showDialog = this.showDialog.bind(this);
     }
+
+    /** Show and hide the Add Form*/
     showAddTeacherForm() {
         this.setState({
             isAddForm: !this.state.isAddForm
-        })
+        });
+        this.getEmployees();
     }
+
     componentDidMount() {
         this.getEmployees()
     }
+
+    /** Getting employees list*/
     getEmployees() {
         BaseCommonServices.getData('school/emp-list/1')
             .then((data: any) => {
                 this.setState({
-                    employeesList: data.data.staffList
+                    employeesList: data.data.staffList,
+                    filteredData: data.data.staffList
                 })
             }).catch(e => {
-                toast.info('Something went wrong', {
-                    position: 'bottom-center',
-                    transition: Slide
-                })
+                if (e !== undefined && e.response.status === 401) {
+                    alert('your session expired')
+                    toast.error('your session expired', {
+                        position: 'bottom-center',
+                        transition: Slide
+                    })
+                    AuthService.logout();
+                } else {
+                    toast.info('Something went wrong', {
+                        position: 'bottom-center',
+                        transition: Slide
+                    })
+                }
             })
+    }
+
+    /**    Filetr the Employee List    */
+    filterList(e: any) {
+        this.setState({
+            filterValue: e.target.value
+        });
+        const filterValue = e.target.value.toLowerCase();
+        let filteredEmpList = this.state.employeesList.filter((item: any) => {
+            /** Filtering through email | phone number | name*/
+            return (item.employee_name.toLowerCase().indexOf(filterValue) === 0)
+                || (item.email.toLowerCase().indexOf(filterValue) === 0) ||
+                (item.phone_number.toLowerCase().indexOf(filterValue) === 0)
+        });
+        this.setState({
+            filteredData: filteredEmpList
+        });
+    }
+    showDialog(item: any){
+        this.setState({
+            open: !this.state.open,
+            selected: item
+        });
     }
     render() {
         return (
             <div>
+                {this.state.open &&
+                    <EditEmpDialo showDialog={this.showDialog} empData={this.state.selected} isOpen = {this.state.open}></EditEmpDialo>
+                }
                 {this.state.isAddForm &&
                     <div className="add_teacher_block">
                         <AddTeacherComponent showAddTeacherForm={this.showAddTeacherForm}></AddTeacherComponent>
@@ -50,7 +100,9 @@ export default class TeachersComponent extends React.Component<{}>{
                             <button type="button" onClick={() => this.showAddTeacherForm()}><i className="fas fa-plus"></i> Add Teacher</button>
                         </div>
                         <div className="search_block">
-                            <input type="text" placeholder="Search..." className="form-control search_input" />
+                            <input type="text" placeholder="Search..." className="form-control search_input"
+                                onChange={(e) => this.filterList(e)} value={this.state.filterValue}
+                            />
                             <span> <i className="fas fa-search"></i> </span>
                         </div>
                         <div className="emp_list">
@@ -67,7 +119,7 @@ export default class TeachersComponent extends React.Component<{}>{
                                 </thead>
                                 <tbody>
                                     {
-                                        this.state.employeesList.map((item: any) =>
+                                        this.state.filteredData.map((item: any) =>
                                             <Fragment key={item.id}>
                                                 <tr>
                                                     <td>{item.id}</td>
@@ -77,7 +129,7 @@ export default class TeachersComponent extends React.Component<{}>{
                                                     <td>{item.phone_number}</td>
                                                     <td>
                                                         <div className="icon_block">
-                                                            <i className="far fa-edit icon"></i>
+                                                            <i className="far fa-edit icon" onClick={() => this.showDialog(item)}></i>
                                                             <i className="fas fa-trash-alt icon red_col"></i>
                                                         </div>
                                                     </td>
