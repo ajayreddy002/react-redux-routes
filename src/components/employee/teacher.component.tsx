@@ -4,7 +4,8 @@ import AddTeacherComponent from './add.teacher.component';
 import { BaseCommonServices } from '../../_services/base.services';
 import { toast, Slide } from 'react-toastify';
 import { AuthService } from '../../_services/auth.service';
-import  EditEmpDialo  from './edit.emp.dialo';
+import EditEmpDialo from './edit.emp.dialo';
+import swal from 'sweetalert';
 export default class TeachersComponent extends React.Component<{}>{
     public state: any;
     constructor(props: any) {
@@ -21,6 +22,7 @@ export default class TeachersComponent extends React.Component<{}>{
         this.getEmployees = this.getEmployees.bind(this);
         this.filterList = this.filterList.bind(this);
         this.showDialog = this.showDialog.bind(this);
+        this.deleteEmp = this.deleteEmp.bind(this);
     }
 
     /** Show and hide the Add Form*/
@@ -76,18 +78,57 @@ export default class TeachersComponent extends React.Component<{}>{
             filteredData: filteredEmpList
         });
     }
-    showDialog(item: any){
+    showDialog(item: any) {
         this.setState({
             open: !this.state.open,
             selected: item
         });
     }
+    // Delete employee
+    deleteEmp(id: number) {
+        swal({
+            title: 'Are you sure?',
+            text: 'Once deleted, you will not be able to recover!',
+            icon: 'warning',
+            buttons: {cancel: true, delete: true},
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                BaseCommonServices.deleteData(`employee/create/${id}`)
+                    .then(
+                        data => {
+                            if (data.status === 200) {
+                                swal("Deleted!", {
+                                    icon: "success",
+                                });
+                                this.getEmployees();
+                            } else {
+                                toast.error(`Failed to delete`, {
+                                    position: 'bottom-center',
+                                    transition: Slide
+                                })
+                            }
+                        }
+                    ).catch(e => {
+                        console.log(e)
+                        toast.error(`Failed to delete`, {
+                            position: 'bottom-center',
+                            transition: Slide
+                        })
+                    })
+            } else {
+                swal("Ok!");
+            }
+        });
+    }
     render() {
         return (
             <div>
+                {/* Edit Employee Dialog */}
                 {this.state.open &&
-                    <EditEmpDialo showDialog={this.showDialog} empData={this.state.selected} isOpen = {this.state.open}></EditEmpDialo>
+                    <EditEmpDialo showDialog={this.showDialog} empData={this.state.selected} isOpen={this.state.open}></EditEmpDialo>
                 }
+                {/* Add Form */}
                 {this.state.isAddForm &&
                     <div className="add_teacher_block">
                         <AddTeacherComponent showAddTeacherForm={this.showAddTeacherForm}></AddTeacherComponent>
@@ -130,7 +171,7 @@ export default class TeachersComponent extends React.Component<{}>{
                                                     <td>
                                                         <div className="icon_block">
                                                             <i className="far fa-edit icon" onClick={() => this.showDialog(item)}></i>
-                                                            <i className="fas fa-trash-alt icon red_col"></i>
+                                                            <i className="fas fa-trash-alt icon red_col" onClick={() => this.deleteEmp(item.id)}></i>
                                                         </div>
                                                     </td>
                                                 </tr>

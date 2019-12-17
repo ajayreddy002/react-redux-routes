@@ -36,7 +36,7 @@ export default class AddTeacherComponent extends React.Component<any>{
         this.setState({ formErrors, addTeacherForm: { ...this.state.addTeacherForm, [name]: value } });
     }
 
-    // Send the request to API
+    // Send the post request to API
     handleSubmit(e: any) {
         e.preventDefault();
         if (this.state.addTeacherForm.email !== '' && this.state.addTeacherForm.employee_name !== ''
@@ -49,7 +49,7 @@ export default class AddTeacherComponent extends React.Component<any>{
                     });
                     setTimeout(() => {
                         this.props.showAddTeacherForm()
-                    }, 3000)
+                    }, 1000)
                     this.setState({ addTeacherForm: {}, isAddForm: false })
                 }).catch(e => {
                     toast.error(`${e.data}`, {
@@ -64,8 +64,8 @@ export default class AddTeacherComponent extends React.Component<any>{
             })
         }
     }
-    render() {
 
+    render() {
         const { formErrors } = this.state;
         return (
             <div>

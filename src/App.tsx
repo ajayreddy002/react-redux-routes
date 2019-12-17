@@ -19,8 +19,7 @@ export class App extends React.Component<any>{
     }
     this.clearAlerts = this.clearAlerts.bind(this)
   }
-  async componentDidMount() {
-    // const loginStatus = await this.getLoginStatus();
+  componentDidMount() {
     AuthService.currentUser.subscribe(
       data => {
         if (data) {
@@ -39,18 +38,23 @@ export class App extends React.Component<any>{
       }
     )
   }
+
   clearAlerts() {
     this.props.clearAlerts();
   }
   render() {
-    // setTimeout(() => {
-    //   this.props.clearAlerts()
-    // }, 9000)
+
+    /** Clearing Alerts from store*/
+    setTimeout(() => {
+      this.props.clearAlerts()
+    }, 5000)
     const { alert } = this.props;
+
+    /** Conditional Rendering  */
     if (this.state.isSignedIn) {
       return (
         <BrowserRouter>
-        <ToastContainer />
+          <ToastContainer />
           <SideNavComponent></SideNavComponent>
         </BrowserRouter>
       )
@@ -75,7 +79,7 @@ export class App extends React.Component<any>{
                     <div className="icon_close">
                       <i className="fas fa-times"></i>
                     </div>
-                    <p className="toast__type"> <span onClick={() => this.clearAlerts()}> <i className="fas fa-exclamation-triangle"></i> </span> Error</p>
+                    <p className="toast__type"> <span onClick={() => this.clearAlerts()}> <i className="fas fa-exclamation-triangle"></i> </span> Success</p>
                     <p className="toast__message">{alert.message} !</p>
                   </div>
                 }
@@ -93,6 +97,7 @@ export class App extends React.Component<any>{
     }
   }
 }
+
 function mapState(state: any) {
   const { alert } = state;
   return { alert };

@@ -3,9 +3,6 @@ import RoutesModule from '../../routes/routing.component';
 import './sidenav.component.scss'
 import { NavLink } from 'react-router-dom';
 export class SideNavComponent extends React.Component<{}>{
-    // constructor(props: any) {
-    //     super(props)
-    // }
     render() {
         return (
             <div>
@@ -54,7 +51,7 @@ export class SideNavComponent extends React.Component<{}>{
                             </li>
                         </ul>
                     </div>
-                    {/* Content */}
+                    {/* Header */}
                     <div id="content">
                         <div className="header_block">
                             <div className="row m-0">
@@ -62,24 +59,19 @@ export class SideNavComponent extends React.Component<{}>{
                                 <div className="col-md-5 col-sm-12"></div>
                                 <div className="col-md-3 col-sm-12">
                                     <div className="dash_short">
-                                        {/* <span> Das <i className="fas fa-th"></i> </span> */}
                                         <ul className="ul_list">
                                             <li className="pr">
                                                 <span>
                                                     User Name <i className="fas fa-user"></i>
                                                 </span>
                                             </li>
-                                            {/* <li>
-                                                <span className="avatar_block">
-                                                    <i className="fas fa-user"></i>
-                                                </span>
-                                            </li> */}
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="container-fluid">
+                            {/* Router outlet */}
                             <div className="route_view">
                                 <RoutesModule></RoutesModule>
                             </div>

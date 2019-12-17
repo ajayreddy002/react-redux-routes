@@ -12,11 +12,12 @@ export default class EditEmpDialo extends React.Component<any> {
             open: false,
             addTeacherForm: {
                 email: '',
-                password: '1236545',
+                password: '',
                 school_id: '1',
                 employee_name: '',
                 subject: '',
-                phone_number: ''
+                phone_number: '',
+                id: ''
             },
             formErrors: {
                 email: '',
@@ -29,6 +30,7 @@ export default class EditEmpDialo extends React.Component<any> {
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+
     /** Field validation and field errors*/
     handleInputChange(e: any) {
         e.preventDefault();
@@ -38,17 +40,17 @@ export default class EditEmpDialo extends React.Component<any> {
         this.setState({ formErrors, addTeacherForm: { ...this.state.addTeacherForm, [name]: value } });
     }
     componentDidMount() {
+        // Binding form fields with existing data
         this.setState({
-            addTeacherForm: this.props.empData
+            addTeacherForm: this.props.empData,
+            open: this.props.isOpen
         })
     }
     render() {
-        console.log(this.props);
-        console.log(this.state.addTeacherForm)
+
         const { formErrors } = this.state;
         return (
-            <Dialog open={this.props.isOpen}>
-                {/* <DialogTitle>Edit {details.employee_name}</DialogTitle> */}
+            <Dialog open={this.state.open}>
                 <DialogContent>
                     <div className="add_form">
                         <div className="form_title">
@@ -113,20 +115,19 @@ export default class EditEmpDialo extends React.Component<any> {
             </Dialog>
         )
     }
+    // Sending put request to API
     handleSubmit(e: any) {
         e.preventDefault();
         if (this.state.addTeacherForm.email !== '' && this.state.addTeacherForm.employee_name !== ''
             && this.state.addTeacherForm.subject !== '' && this.state.addTeacherForm.phone_number !== '') {
-            BaseCommonServices.postData('employee/create', this.state.addTeacherForm)
+            BaseCommonServices.putData('employee/create', this.state.addTeacherForm)
                 .then((data: any) => {
                     toast.success(`${data.data}`, {
                         position: 'bottom-center',
                         transition: Slide
                     });
-                    setTimeout(() => {
-                        this.props.showAddTeacherForm()
-                    }, 3000)
-                    this.setState({ addTeacherForm: {}, isAddForm: false })
+                    this.setState({ open: false })
+
                 }).catch(e => {
                     toast.error(`${e.data}`, {
                         position: 'bottom-center',
