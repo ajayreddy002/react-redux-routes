@@ -31,6 +31,11 @@ function fieldValidation(name: any, value: any) {
         case 'school_name':
         case 'user_name':
         case 'school_address':
+        case 'student_name':
+        case 'parent_name':
+        case 'class_name':
+        case 'section_name':
+        case 'student_address':
             if (validator.isEmpty(value)) {
                 return `Field is Required`
             } else {

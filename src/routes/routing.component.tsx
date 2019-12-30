@@ -3,6 +3,7 @@ import { Switch, Route, RouteProps, Redirect } from 'react-router-dom';
 import { DashBoardComponent } from '../components/dashboard/dashboard.component';
 import { NotFoundComponet } from '../components/login/notfound.component';
 import TeachersComponent from '../components/employee/teacher.component';
+import StudentComponent from '../components/student/student.component';
 export interface PrivateRouteProps extends RouteProps {
     component: React.ComponentType<any>;
 }
@@ -12,6 +13,7 @@ const RoutesModule = () => {
             <PrivateRoute path="/" exact component={DashBoardComponent}></PrivateRoute>
             <PrivateRoute path="/dashboard" exact component={DashBoardComponent}></PrivateRoute>
             <PrivateRoute path="/teacher" exact component={TeachersComponent}></PrivateRoute>
+            <PrivateRoute path="/student" exact component={StudentComponent}></PrivateRoute>
             <PrivateRoute path="*" exact component={NotFoundComponet}></PrivateRoute>
         </Switch>
     )

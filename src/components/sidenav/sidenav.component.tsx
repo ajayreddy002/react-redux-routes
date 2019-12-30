@@ -26,7 +26,7 @@ export class SideNavComponent extends React.Component<{}>{
                                 </NavLink>
                             </li>
                             <li className="nav_li">
-                                <NavLink to="/" className="nav-link" exact>
+                                <NavLink to="/student" className="nav-link" exact>
                                     <i className="fas fa-user-friends"></i>
                                     Students
                                 </NavLink>
